@@ -1,4 +1,5 @@
 # Projeto: cadastramento de alunos
+<br>
 ## Objetivo
 O projeto é um site de cadastro de alunos de uma escola, desenvolvido utilizando as linguagens HTML, CSS, JavaScript e MariaDB. O objetivo do site é facilitar o cadastro e a gestão de alunos por parte da escola.
 
