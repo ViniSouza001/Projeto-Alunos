@@ -187,3 +187,7 @@ main{
     cursor: pointer;
     font-size: 15px;
 }
+
+label > img {
+    cursor: pointer;
+}

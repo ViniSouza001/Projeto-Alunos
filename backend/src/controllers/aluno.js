@@ -63,10 +63,35 @@ const excluir = (req, res) => {
     });
 }
 
+const buscarAlunoRa = (req, res) => {
+    let ra = req.params.ra;
+    con.query(`SELECT * FROM alunos WHERE ra = '${ra}'`, (err, result) => {
+        if(err == null) {
+            res.json(result).status(200).end();
+        } else {
+            res.json(err).status(400).end();
+        }
+    });
+}
+
+const buscarAlunoNome = (req, res) => {
+    let nome = req.params.nome;
+    let query = `SELECT * FROM alunos WHERE nome LIKE '%${nome}%'`
+    con.query(query, (err, result) => {
+        if(err == null) {
+            res.json(result).status(200).end();
+        } else {
+            res.json(err).status(400).end();
+        }
+    })
+}
+
 module.exports = {
     cadastrar,
     listar,
     adicionarTelefone,
     listarTelefones,
-    excluir
+    excluir,
+    buscarAlunoRa,
+    buscarAlunoNome
 }

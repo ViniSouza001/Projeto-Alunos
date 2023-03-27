@@ -35,3 +35,5 @@ FROM alunos a
 INNER JOIN telefones t
 ON a.ra = t.ra
 WHERE a.ra = t.ra;
+
+SELECT * FROM alunos WHERE nome LIKE 'D%';
