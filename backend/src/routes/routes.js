@@ -8,5 +8,8 @@ router.get('/alunos', Aluno.listar);
 router.post('/aluno/telefone', Aluno.adicionarTelefone);
 router.get('/telefones/:ra', Aluno.listarTelefones);
 router.delete('/aluno/excluir/:ra', Aluno.excluir);
+router.get('/aluno/buscar/ra/:ra', Aluno.buscarAlunoRa);
+router.get('/aluno/nome/:nome', Aluno.buscarAlunoNome);
+
 
 module.exports = router;
