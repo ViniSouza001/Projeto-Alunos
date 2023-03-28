@@ -15,6 +15,7 @@ body {
     justify-content: space-around;
     background-color: rgb(255, 0, 0);
     align-items: center;
+    padding: 10px;
 }
 
 #null {
@@ -22,6 +23,22 @@ body {
     height: 500px;
     margin: auto;
     display: none;
+}
+
+#search-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#lupa {
+    cursor: pointer;
+    width: 20px;
+}
+
+#search {
+    padding: 5px;
+    border-radius: 10px;
 }
 
 #add {

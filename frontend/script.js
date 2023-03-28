@@ -1,4 +1,4 @@
-const tabela = document.querySelector('table');
+const tabela = document.querySelector('tbody');
 var cadastro = document.querySelector('#cadastro');
 const escondido = document.querySelector('#null');
 
@@ -114,10 +114,8 @@ function informacoes(nasc, ra) {
     btnExcluir.classList.value = ''
     btnExcluir.classList.add(`${ra}`);
 
-    let data = new Date(nasc); // transform date (yyyy-mm-dd) to (dd-mm-yyyy)
-    let opcoes = {day: '2-digit', month: '2-digit', year: 'numeric'};
-    let formato = new Intl.DateTimeFormat('pt-BR', opcoes);
-    let dataFormatada = formato.format(data);
+    let dataFormatada = formatarData(nasc);
+    
 
     pNasc.innerHTML = `Data de nascimento: ${dataFormatada}`;
 
@@ -172,3 +170,26 @@ function excluir(element) {
         window.location.reload();
     });
 }
+
+function formatarData(nasc) {
+    let data = new Date(nasc); // transform date (yyyy-mm-dd) to (dd-mm-yyyy)
+    let opcoes = {day: '2-digit', month: '2-digit', year: 'numeric'};
+    let formato = new Intl.DateTimeFormat('pt-BR', opcoes);
+    let dataFormatada = formato.format(data);
+    return dataFormatada;
+}
+
+let lupa = document.querySelector('#lupa');
+let search = document.querySelector('#search');
+lupa.addEventListener('click', function() {
+    fetch(`http://localhost:3000/aluno/nome/${search.value}`)
+    .then(data => {return data.json();})
+    .then(data => {
+        data.forEach((element, index) => {
+            let elemento = tabela.querySelector('td').querySelector('tr');
+            tabela.children[index].innerHTML = element.ra
+            tabela.children[index].innerHTML += element.nome
+            console.log(tabela.children)
+        }) 
+    });
+});
