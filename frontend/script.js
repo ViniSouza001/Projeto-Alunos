@@ -1,6 +1,7 @@
 const tabela = document.querySelector('tbody');
 var cadastro = document.querySelector('#cadastro');
 const escondido = document.querySelector('#null');
+const body = document.querySelector('body');
 
 
 cadastro.addEventListener('submit', (e) => {
@@ -75,6 +76,10 @@ function listar(){
         return resp.json();
     })
     .then((data) => {
+        let linha = tabela.querySelectorAll('tr');
+        for (let i = 0; i < linha.length; i++) {
+            linha[i].remove();
+        }
         data.forEach((aluno)=> {
             listarAlunos(aluno);      
         });
@@ -83,30 +88,20 @@ function listar(){
 }
 
 function listarAlunos(aluno) {
-    let linha = document.createElement('tr');
-    let ra = document.createElement('td');
-    let nome = document.createElement('td');
-    let cidade = document.createElement('td');
-    let escola = document.createElement('td');
-    let info = document.createElement('td');
-
-    ra.innerHTML = aluno.ra;
-    nome.innerHTML += aluno.nome;
-    cidade.innerHTML += aluno.cep;
-    escola.innerHTML += aluno.escola;
-    // create a label for active the checkbox and the div appear
-    info.innerHTML = `<label for="check">
-    <img src='./assets/info.png' width ='40px' onclick="informacoes('${aluno.data_nasc}', '${aluno.ra}'); appear()">
-    </label>`;
-
-    linha.appendChild(ra);
-    linha.appendChild(nome);
-    linha.appendChild(cidade);
-    linha.appendChild(escola);
-    linha.appendChild(info)
-
+    const linha = document.createElement('tr');
+    linha.innerHTML = `
+      <td>${aluno.ra}</td>
+      <td>${aluno.nome}</td>
+      <td>${aluno.cep}</td>
+      <td>${aluno.escola}</td>
+      <td>
+        <label for="check">
+          <img src='./assets/info.png' width ='40px' onclick="informacoes('${aluno.data_nasc}', '${aluno.ra}'); appear()">
+        </label>
+      </td>
+    `;
     tabela.appendChild(linha);
-}
+  }
 
 function informacoes(nasc, ra) {
     let pNasc = document.querySelector('#pNasc');
@@ -182,14 +177,26 @@ function formatarData(nasc) {
 let lupa = document.querySelector('#lupa');
 let search = document.querySelector('#search');
 lupa.addEventListener('click', function() {
+    (search.value.length == 0)
+    ?
+    listar()
+    :
     fetch(`http://localhost:3000/aluno/nome/${search.value}`)
     .then(data => {return data.json();})
     .then(data => {
-        data.forEach((element, index) => {
-            let elemento = tabela.querySelector('td').querySelector('tr');
-            tabela.children[index].innerHTML = element.ra
-            tabela.children[index].innerHTML += element.nome
-            console.log(tabela.children)
-        }) 
+
+        let linha = tabela.querySelectorAll('tr');
+        for (let i = 0; i < linha.length; i++) {
+            linha[i].remove();
+        }
+
+        data.forEach(element => {
+            let linha = document.createElement('tr');
+            let { ra, nome, cep, escola } = element;
+
+            linha.innerHTML = `<td>${ra}</td><td>${nome}</td><td>${cep}</td><td>${escola}</td>`
+
+            tabela.appendChild(linha);
+        });
     });
 });
