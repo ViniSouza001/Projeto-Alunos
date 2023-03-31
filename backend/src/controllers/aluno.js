@@ -86,6 +86,19 @@ const buscarAlunoNome = (req, res) => {
     })
 }
 
+const alterarDados = (req, res) => {
+    let { nome, data_nasc, cep, uf } = req.body;
+    let { id } = req.params.id;
+    let query = `UPDATE alunos SET nome = ${nome}, data_nasc = ${data_nasc}, cep = ${cep}, uf = ${uf} WHERE id = ${id}`;
+    con.query(query, (err, result) => {
+        if(err == null) {
+            res.json(result).status(200).end();
+        } else {
+            res.json(err).status(400).end();
+        }
+    });
+}
+
 module.exports = {
     cadastrar,
     listar,
@@ -93,5 +106,6 @@ module.exports = {
     listarTelefones,
     excluir,
     buscarAlunoRa,
-    buscarAlunoNome
+    buscarAlunoNome,
+    alterarDados
 }

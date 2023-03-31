@@ -1,7 +1,6 @@
 const tabela = document.querySelector('tbody');
 var cadastro = document.querySelector('#cadastro');
 const escondido = document.querySelector('#null');
-const body = document.querySelector('body');
 
 
 cadastro.addEventListener('submit', (e) => {
@@ -106,8 +105,11 @@ function listarAlunos(aluno) {
 function informacoes(nasc, ra) {
     let pNasc = document.querySelector('#pNasc');
     let btnExcluir = document.querySelector('#excluir');
+    let btnAlterar = document.querySelector('#alterar');
+    btnAlterar.classList.value = '';
     btnExcluir.classList.value = ''
     btnExcluir.classList.add(`${ra}`);
+    btnAlterar.classList.add(`${ra}`);
 
     let dataFormatada = formatarData(nasc);
     
@@ -200,3 +202,8 @@ lupa.addEventListener('click', function() {
         });
     });
 });
+
+function alterar(element) {
+    let ra = element.value;
+    console.log(ra);
+}
